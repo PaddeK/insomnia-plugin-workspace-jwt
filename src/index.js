@@ -1,5 +1,4 @@
-module.exports.Utils = require('./Utils');
-module.exports.WorkspaceActions = require('./WorkspaceActions');
-module.exports.RequestAction = require('./RequestAction');
-module.exports.RequestHook = require('./RequestHook');
-module.exports.ResponseHook = require('./ResponseHook');
+module.exports.workspaceActions = require('./WorkspaceActions');
+module.exports.requestActions = [require('./RequestAction')];
+module.exports.requestHooks = [require('./RequestHook')];
+module.exports.responseHooks = [require('./ResponseHook')];
