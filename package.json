@@ -1,0 +1,43 @@
+{
+    "name": "insomnia-plugin-workspace-jwt",
+    "description": "This is a plugin for [insomnia](https://insomnia.rest) which provides workspace-wide JWT authentication. Tokens are automatically renewed when they expire. Simply define a request in the workspace as an authorization endpoint and reference the token in the response via JSONPath or XPath.",
+    "version": "1.0.0",
+    "license": "MIT",
+    "author": "paddek",
+    "repository": {
+        "type": "git",
+        "url": ""
+    },
+    "keywords": [
+        "insomnia",
+        "plugin",
+        "jwt",
+        "json web token",
+        "authentication"
+    ],
+    "insomnia": {
+        "name": "workspace-jwt",
+        "description": "This plugin provides workspace-wide JWT authentication. Tokens are automatically renewed when they expire. Simply define a request in the workspace as an authorization endpoint and reference the token in the response via JSONPath or XPath.",
+        "displayName": "Workspace JWT Auth",
+        "images": {
+            "icon": "images/logo.png"
+        },
+        "publisher": {
+            "name": "paddek"
+        },
+        "applications": {
+            "designer": "*",
+            "core": "*",
+            "cli": "*"
+        }
+    },
+    "main": "main.js",
+    "files": [
+        "images/logo.png"
+    ],
+    "dependencies": {
+        "iconv-lite": "~0.6.3",
+        "insomnia-xpath": "~2.3.0",
+        "jsonpath": "~1.1.1"
+    }
+}
