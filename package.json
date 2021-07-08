@@ -4,9 +4,13 @@
     "version": "1.0.0",
     "license": "MIT",
     "author": "paddek",
+    "bugs": {
+        "url": "https://github.com/PaddeK/insomnia-plugin-workspace-jwt/issues"
+    },
+    "homepage": "https://github.com/PaddeK/insomnia-plugin-workspace-jwt#readme",
     "repository": {
         "type": "git",
-        "url": ""
+        "url": "https://github.com/PaddeK/insomnia-plugin-workspace-jwt.git"
     },
     "keywords": [
         "insomnia",
