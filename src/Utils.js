@@ -304,11 +304,12 @@ class Utils
     /**
      * @param {string} key
      * @param {{_id: string}} workspace
+     * @param {{_id: string} | null} environment
      * @return {string}
      */
-    static buildStoreKey (key, workspace)
+    static buildStoreKey (key, workspace, environment = null)
     {
-        return `${workspace._id}:${key}`;
+        return `${workspace._id}${environment ? `:${environment._id}` : ''}:${key}`;
     }
 
     /**

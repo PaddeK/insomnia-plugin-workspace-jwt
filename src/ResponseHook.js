@@ -6,6 +6,7 @@ module.exports = async ({request, response, store}) => {
     try {
         const
             workspace = {_id: request.getEnvironment().getMeta().workspaceId},
+            environment = {_id: request.getEnvironment().getEnvironmentId()},
             filter = await store.getItem(buildStoreKey(STORE_FILTER_KEY, workspace)),
             authRequestId = await store.getItem(buildStoreKey(STORE_REQUEST_ID_KEY, workspace));
 
@@ -14,7 +15,7 @@ module.exports = async ({request, response, store}) => {
         }
 
         if (response.getRequestId() === authRequestId) {
-            const tokenKey = buildStoreKey(STORE_TOKEN_KEY, workspace);
+            const tokenKey = buildStoreKey(STORE_TOKEN_KEY, workspace, environment);
             await store.setItem(tokenKey, applyFilterToResponseBody(response.getBody().toString(), filter));
         }
     } catch (err) {

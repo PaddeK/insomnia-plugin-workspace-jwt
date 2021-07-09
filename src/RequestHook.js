@@ -6,7 +6,7 @@ module.exports = async ({request, store, network}) => {
     try {
         const
             workspace = {_id: request.getEnvironment().getMeta().workspaceId},
-            tokenKey = buildStoreKey(STORE_TOKEN_KEY, workspace),
+            tokenKey = buildStoreKey(STORE_TOKEN_KEY, workspace, {_id: request.getEnvironment().getEnvironmentId()}),
             token = await store.getItem(tokenKey),
             authRequestId = await store.getItem(buildStoreKey(STORE_REQUEST_ID_KEY, workspace)),
             hasAuthHeader = request.hasHeader(HEADER_AUTHORIZATION) || Object.keys(request.getAuthentication()).length;
