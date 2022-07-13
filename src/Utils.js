@@ -3,7 +3,7 @@ const
     {readFileSync} = require('fs'),
     jq = require('jsonpath'),
     iconv = require('iconv-lite'),
-    {query: queryXPath} = require('insomnia-xpath'),
+    queryXPath = require('./query'),
     {PLUGIN_NAME, STORE_FILTER_KEY, STORE_TOKEN_KEY} = require('./constants');
 
 class Utils
