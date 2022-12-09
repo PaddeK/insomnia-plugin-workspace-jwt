@@ -23,6 +23,8 @@ or
 2. Click on the request drop down menu and select `Use as Authorization request`
 3. You will be asked to define a JSONPath or XPath filter to reference the token in the response
 
+Note: Ensure that `No Authentication` is selected as the Auth type and no `Authorization` header is defined for any requests where you want this plugin to populate an `Authorization` header. Currently, the only prefix supported is `Bearer`.
+
 # Cleanup saved data
 1. Click on the workspace drop down menu and select `Clear Workspace JWT data`
 2. Confirm deletion
