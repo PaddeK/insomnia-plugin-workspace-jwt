@@ -1,5 +1,12 @@
 const
-    {HEADER_AUTHORIZATION, PLUGIN_NAME, STORE_REQUEST_ID_KEY, STORE_TOKEN_KEY} = require('./constants'),
+    {
+        HEADER_AUTHORIZATION,
+        PLUGIN_NAME,
+        STORE_REQUEST_ID_KEY,
+        STORE_TOKEN_KEY,
+        ENVIRONMENT_DEFAULT_PREFIX,
+        ENVIRONMENT_PREFIX_KEY
+    } = require('./constants'),
     {buildStoreKey, isTokenExpired, requestFromId} = require('./Utils');
 
 module.exports = async ({request, store, network}) => {
@@ -9,7 +16,8 @@ module.exports = async ({request, store, network}) => {
             tokenKey = buildStoreKey(STORE_TOKEN_KEY, workspace, {_id: request.getEnvironment().getEnvironmentId()}),
             token = await store.getItem(tokenKey),
             authRequestId = await store.getItem(buildStoreKey(STORE_REQUEST_ID_KEY, workspace)),
-            hasAuthHeader = request.hasHeader(HEADER_AUTHORIZATION) || Object.keys(request.getAuthentication()).length;
+            hasAuthHeader = request.hasHeader(HEADER_AUTHORIZATION) || Object.keys(request.getAuthentication()).length,
+            prefix = request.getEnvironmentVariable(ENVIRONMENT_PREFIX_KEY) ?? ENVIRONMENT_DEFAULT_PREFIX;
 
         if (authRequestId === null || (request.getId() === authRequestId) || hasAuthHeader) {
             return;
@@ -19,7 +27,7 @@ module.exports = async ({request, store, network}) => {
             await network.sendRequest(requestFromId(authRequestId));
         }
 
-        request.addHeader(HEADER_AUTHORIZATION, `Bearer ${await store.getItem(tokenKey)}`);
+        request.addHeader(HEADER_AUTHORIZATION, `${prefix} ${await store.getItem(tokenKey)}`);
     } catch (err) {
         console.error(PLUGIN_NAME, __filename.slice(0, -3), err);
         throw err;

@@ -322,9 +322,10 @@ class Utils
         const
             rawData = JSON.parse(await data.export.insomnia({includePrivate: false, format: 'json'})),
             hierarchy = rawData.resources.reduce((p, c) => (p[c._id] = c.parentId, p), {}),
-            _findWorkspace = id => hierarchy[id] === null ? id : _findWorkspace(hierarchy[id]);
+            _findWorkspace = id => hierarchy[id] ? _findWorkspace(hierarchy[id]) : id,
+            found = _findWorkspace(modelId);
 
-        return _findWorkspace(modelId);
+        return typeof found === 'string' && found.startsWith('wrk_') ? found : null;
     }
 }
 

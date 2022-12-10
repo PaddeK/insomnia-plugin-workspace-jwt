@@ -7,15 +7,19 @@ module.exports = {
     icon: 'fa-key',
     action: async ({app, data, network, store}, {request}) => {
         try {
-            const workspace = {_id: await findWorkspace(data, request._id)};
+            const workspaceId = await findWorkspace(data, request._id);
 
-            await store.setItem(buildStoreKey(STORE_REQUEST_ID_KEY, workspace), request._id);
+            if (workspaceId !== null) {
+                const workspace = {_id: workspaceId};
 
-            const filter = await promptForFilter(app, store, workspace);
+                await store.setItem(buildStoreKey(STORE_REQUEST_ID_KEY, workspace), request._id);
 
-            if (filter) {
-                const response = await handleTokenResponse(request, filter, {network, store, workspace});
-                await displayToken(response, app);
+                const filter = await promptForFilter(app, store, workspace);
+
+                if (filter) {
+                    const response = await handleTokenResponse(request, filter, {network, store, workspace});
+                    await displayToken(response, app);
+                }
             }
         } catch (err) {
             console.error(PLUGIN_NAME, __filename.slice(0, -3), err);
